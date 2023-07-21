@@ -1,5 +1,6 @@
 # Insomnia API Client
 
+
 [![Slack Channel](https://chat.insomnia.rest/badge.svg)](https://chat.insomnia.rest/)
 [![license](https://img.shields.io/github/license/Kong/insomnia.svg)](LICENSE)
 
