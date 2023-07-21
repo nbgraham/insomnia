@@ -87,23 +87,26 @@ export const VariableEditor: FC<Props> = ({ onChange, defaultValue }) => {
       return;
     }
 
+    // TODO: is there a built in way to set a field in an object with the JSON path?
+    const data = { ...activeEnvironment.data };
     const keyCopy = [...key];
-    const first = keyCopy.pop();
-    if (!first) {
+    const last = keyCopy.pop();
+    if (!last) {
       return;
     }
-    let data: Record<string, any> = { [first]: newValue };
+    let cur: Record<string, any> = data;
     while (keyCopy.length > 0) {
       const key = keyCopy.pop();
       if (!key) {
         break;
       }
-      data = { [key]: data };
+      cur = cur[key];
     }
+    cur[last] = newValue;
 
-    // TODO: This is _replacing_ the environment, removing all existing values
     await updateEnvironment(activeEnvironment._id, {
       data: data,
+      dataPropertyOrder: activeEnvironment.dataPropertyOrder,
     });
   };
 
